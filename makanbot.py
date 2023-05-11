@@ -18,3 +18,15 @@ def start(update):
         ]),
     )
 
+def get_nearby_restaurants(latitude, longitude, radius):
+    URL = "https://api.foursquare.com/v2/venues/explore?client_id={}&client_secret={}&ll={},{}&radius={}&v=20230510".format(
+        foursquare_api_key, foursquare_api_key, latitude, longitude, radius
+    )
+
+    response = requests.get(URL)
+
+    data = response.json()
+
+    restaurants = data["response"]["groups"][0]["items"]
+
+    return restaurants
